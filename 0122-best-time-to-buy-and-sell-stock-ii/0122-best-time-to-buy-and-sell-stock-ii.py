@@ -24,7 +24,7 @@ class Solution:
             dp[i][0] = max(dp[i+1][0], -prices[i] + dp[i+1][1]) 
             dp[i][1] = max(dp[i+1][1], prices[i] + dp[i+1][0]) 
         return dp[0][0]
-        
-__import__("atexit").register(lambda: open("display_runtime.txt", "w").write("000"))
+
+#__import__("atexit").register(lambda: open("display_runtime.txt", "w").write("000"))
 
 
