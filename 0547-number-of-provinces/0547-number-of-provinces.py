@@ -1,18 +1,20 @@
-class Solution(object):
+class Solution:
     def findCircleNum(self, isConnected):
         n = len(isConnected)
-        visited = [False] * n
-        provinces = 0
+        parent = list(range(n))
+
+        def find(x):
+            while parent[x] != x:
+                parent[x] = parent[parent[x]]  # path compression
+                x = parent[x]
+            return x
+
+        def union(x, y):
+            parent[find(x)] = find(y)
 
         for i in range(n):
-            if not visited[i]:
-                queue = [i]
-                visited[i] = True
-                while queue:
-                    city = queue.pop(0)  
-                    for j in range(n):
-                        if isConnected[city][j] == 1 and not visited[j]:
-                            visited[j] = True
-                            queue.append(j)
-                provinces += 1
-        return provinces
+            for j in range(i + 1, n):
+                if isConnected[i][j] == 1:
+                    union(i, j)
+
+        return len(set(find(i) for i in range(n)))
